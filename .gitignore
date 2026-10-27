@@ -1,0 +1,25 @@
+.venv/
+__pycache__/
+*.pyc
+db.sqlite3
+cat > .gitignore << 'EOF'
+# Виртуальное окружение
+.venv/
+venv/
+
+# Кэш Python
+__pycache__/
+*.py[cod]
+
+# Локальная база данных
+db.sqlite3
+db.sqlite3-journal
+
+# Настройки окружения и IDE
+.env
+.vscode/
+.idea/
+
+# Логи
+*.log
+EOF
