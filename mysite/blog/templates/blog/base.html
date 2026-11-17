@@ -1,25 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <title>{% block title %}Учебный сайт по Django{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <header>
         <h1>Учебный сайт по Django</h1>
-        <nav>
-            <a href="{% url 'home' %}">Главная</a> |
-            <a href="{% url 'post_list' %}">Блог</a> |
-            <a href="{% url 'about' %}">О проекте</a>
-        </nav>
-        <hr>
+        {% include "blog/_nav.html" %}
     </header>
     
     <main>
         {% block content %}{% endblock %}
     </main>
     
-    <hr>
     <footer>
         <p>Учебный курс по Django | Автор: Суркин Илья, группа ДЭ24-24, направление ИСИТ</p>
     </footer>
