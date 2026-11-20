@@ -10,9 +10,14 @@
     <ul>
     {% for post in posts %}
         <li>
-            <strong>{{ post.title }}</strong><br>
-            <small>Создано: {{ post.created_at|date:"d.m.Y H:i" }}</small><br>
-            <p>{{ post.body }}</p>
+            <h3>
+                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+            </h3>
+            <small>Создано: {{ post.created_at|date:"d.m.Y H:i" }}</small>
+            <p>
+                {{ post.body|truncatechars:150 }}
+                <a href="{% url 'post_detail' pk=post.pk %}">Подробнее...</a>
+            </p>
         </li>
     {% endfor %}
     </ul>
