@@ -6,6 +6,8 @@
 <h2>Блог</h2>
 <p>Авторы сайта: <b>Суркин Илья</b>, группа <b>ДЭ24-24</b>, направление <b>ИСИТ</b></p>
 
+<p><a href="{% url 'post_create' %}">Создать новый пост</a></p>
+
 {% if posts %}
     <ul>
     {% for post in posts %}
@@ -13,7 +15,8 @@
             <h3>
                 <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
             </h3>
-            <small>Создано: {{ post.created_at|date:"d.m.Y H:i" }}</small>
+            <small>Создано: {{ post.created_at|date:"d.m.Y H:i" }}</small><br>
+            <small>Комментариев: {{ post.comments.count }}</small>
             <p>
                 {{ post.body|truncatechars:150 }}
                 <a href="{% url 'post_detail' pk=post.pk %}">Подробнее...</a>

@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render, get_object_or_404
-from .models import Post
-from .forms import PostForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
 
 def home(request):
     context = {}
@@ -16,11 +16,6 @@ def post_list(request):
 def about(request):
     context = {}
     return render(request, "blog/about.html", context)
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk, is_published=True)
-    context = {"post": post}
-    return render(request, "blog/post_detail.html", context)
 
 def post_create(request):
     if request.method == "POST":
@@ -57,3 +52,24 @@ def post_delete(request, pk):
     
     context = {"post": post}
     return render(request, "blog/post_confirm_delete.html", context)
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk, is_published=True)
+    comments = post.comments.all().order_by("-created_at")
+    
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False) 
+            comment.post = post 
+            comment.save() 
+            return redirect("post_detail", pk=post.pk)
+    else:
+        form = CommentForm()
+    
+    context = {
+        "post": post,
+        "comments": comments,
+        "form": form,
+    }
+    return render(request, "blog/post_detail.html", context)
