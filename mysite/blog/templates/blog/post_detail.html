@@ -13,5 +13,9 @@
 
 <p>{{ post.body }}</p>
 
-<p><a href="{% url 'post_list' %}">← Вернуться к списку постов</a></p>
+<p>
+    <a href="{% url 'post_list' %}">← К списку постов</a> | 
+    <a href="{% url 'post_edit' pk=post.pk %}">Редактировать</a> | 
+    <a href="{% url 'post_delete' pk=post.pk %}" style="color: red;">Удалить</a>
+</p>
 {% endblock %}
